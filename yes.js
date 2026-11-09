@@ -1,42 +1,55 @@
-const heartSymbols = ["♡", "♥", "💗", "💕", "💖"];
+const dreamyAtmosphere = document.getElementById("dreamyAtmosphere");
 
-const atmosphere = document.getElementById("dreamyAtmosphere");
+const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+).matches;
 
-function createHeart() {
-    if (!atmosphere) return;
-
-    const heart = document.createElement("span");
-
-    heart.classList.add("dream-particle");
-
-    heart.textContent =
-        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-
-    heart.style.left = Math.random() * 100 + "%";
-
-    heart.style.setProperty(
-        "--particle-size",
-        Math.random() * 12 + 12 + "px"
+function updateDreamIntensity() {
+    dreamyAtmosphere.style.setProperty(
+        "--dream-intensity",
+        0.75
     );
-
-    heart.style.setProperty(
-        "--particle-duration",
-        Math.random() * 5 + 6 + "s"
-    );
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 11000);
 }
 
-const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-);
+if (dreamyAtmosphere && !prefersReducedMotion) {
 
-if (!reducedMotion.matches) {
-    setInterval(createHeart, 650);
+    function createDreamParticle() {
+
+        if (dreamyAtmosphere.querySelectorAll(".dream-particle").length >= 16) {
+            return;
+        }
+
+        const particle = document.createElement("span");
+
+        const isHeart = Math.random() > 0.45;
+
+        particle.classList.add(
+            "dream-particle",
+            isHeart ? "dream-heart" : "dream-petal"
+        );
+
+        particle.textContent = isHeart ? "♡" : "✿";
+
+        const size = Math.random() * 12 + 10;
+        const duration = Math.random() * 7 + 10;
+        const horizontalPosition = Math.random() * 100;
+
+        particle.style.left = horizontalPosition + "%";
+        particle.style.fontSize = size + "px";
+        particle.style.animationDuration = duration + "s";
+
+        dreamyAtmosphere.appendChild(particle);
+
+        setTimeout(function () {
+            particle.remove();
+        }, duration * 1000);
+
+    }
+
+    updateDreamIntensity();
+
+    setInterval(createDreamParticle, 900);
+
 }
 
 
