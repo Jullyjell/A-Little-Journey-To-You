@@ -27,7 +27,7 @@ body {
     height: 100%;
     overflow: hidden;
     pointer-events: none;
-    z-index: 12;
+    z-index: 9999;
     --dream-intensity: 0.75;
 }
 
@@ -128,7 +128,7 @@ body {
 
 .ending-content {
     position: relative;
-    z-index: 11;
+    z-index: 1;
 
     width: 100%;
     max-width: 540px;
