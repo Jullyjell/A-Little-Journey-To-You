@@ -27,7 +27,7 @@ body {
     height: 100%;
     overflow: hidden;
     pointer-events: none;
-    z-index: 10;
+    z-index: 12;
     --dream-intensity: 0.75;
 }
 
